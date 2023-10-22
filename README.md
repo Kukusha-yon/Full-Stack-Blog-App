@@ -1,2 +1,1 @@
-# Full-Stack-Blog-App
-My first try on full stack project
+# An on going project Blog post using ejs, express js and mongoose.

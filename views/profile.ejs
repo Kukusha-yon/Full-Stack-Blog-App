@@ -1,0 +1,34 @@
+<ul class="nav col-12 col-md-auto mb-2 justify-contetnt-center mb-md-0">
+    <li>
+        <a href="blog" class="nav-link px-2 link-sencondary">Write a Blog</a>
+    </li>
+    <li>
+        <a href="showBlog" class="nav-link px-2 link-sencondary">All Blogs</a>
+    </li>
+</ul>
+<div class="cardg">
+    <% if (blogs.length > 0 ) { %>
+        <% blogs.forEach(blog=> { %>
+            <div class="card-list">
+                <h5 class="fw-bold">
+                    <%= blog.title %>
+                </h5>
+                <p>
+                    <%= blog.content %>
+                </p>
+                <img src="<%= blog.Image %>" alt="Image" style="max-width: 200px;">
+
+                <h5 class="fw-bold">
+
+                </h5>
+                <a href="/edit/<%= blog._id %>/blog" class="btn btn-primary btn-lg active" role="button"
+                    aria-pressed="true">Edit</a>
+                <a href="/delete/<%= blog._id %>/blog" class="btn btn-danger btn-lg active" role="button"
+                    aria-pressed="true">Delete</a>
+            
+
+                <% }) %>
+
+                <%}%>
+        </div>            
+</div>

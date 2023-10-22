@@ -1,0 +1,43 @@
+<h1 class="pb-4">Write Your Blog</h1>
+
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+       
+    </ol>
+
+</nav>
+<div class="container mt-3">
+    <form action="/blog" method="post" enctype="multipart/form-data">
+        <div class="mb-3">
+            <label for="title" class="form-label"></label>
+            <input type="text" class="form-control" name="title" id="title" placeholder="title">
+        </div>
+        <div class="mb-3">
+            <label for="email" class="form-label"></label>
+            <input type="text" class="form-control" name="email" id="email" placeholder="email">
+        </div>
+        <!-- <div class="mb-3">
+            <label for="author" class="form-label"></label>
+            <input type="text" class="form-control" name="author" placeholder="Author"
+        </div> -->
+
+        <br>
+        <div class="form-floating">
+            <textarea type="text" class="form-control" placeholder="content" name="content"></textarea>
+            <label for="content"></label>
+        </div>
+        <div class="form-floating">
+            <input type="file" class="form-control" placeholder="image file name.." id="Image" name="Image">
+            <label for="Image"></label>
+        </div>
+        <div class="mb-3">
+            <label for="references" class="form-label"></label>
+            <input type="text" class="form-control" name="references" placeholder="reference">
+        </div>
+
+        <div>
+            <button type="submit" class="btn btn-primary btn-lg">Submit</button>
+        </div>
+    </form>
+</div>

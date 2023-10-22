@@ -1,0 +1,93 @@
+:root {
+    --bs-font-sans-serif: 'Rubik', sans-serif;
+}
+
+.container-xxl {
+    max-width: 1530px;
+}
+
+body {
+    background-color: rgb(243, 243, 243);
+}
+
+a {
+    color: var(--bs-dark);
+}
+
+.contegory_link {
+    text-align: center;
+    display: block;
+    text-decoration: none;
+    transition: 250ms all;
+}
+
+.category_link:hover {
+    transform: scale(1.1);
+}
+
+.category__img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+    margin-bottom: 10px;
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, .16);
+    overflow: hidden;
+    border-radius: 8px;
+}
+
+/* .category_img img {
+    width: 100%;
+    object-fit: cover;
+}
+
+.category_img--large {
+    height: 330px;
+} */
+
+.cardg {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    align-self: center;
+    margin-left: 20%;
+    width: 60%;
+    padding: 100px;
+
+}
+
+.formImage {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.date {
+    font-size: 11px
+}
+
+.comment-text {
+    font-size: 12px
+}
+
+.fs-12 {
+    font-size: 12px
+}
+
+.shadow-none {
+    box-shadow: none
+}
+
+.name {
+    color: #007bff
+}
+
+.cursor:hover {
+    color: blue
+}
+
+.cursor {
+    cursor: pointer
+}
