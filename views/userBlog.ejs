@@ -23,16 +23,16 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <% users.forEach((row,index) => { %>
+                            <% users.forEach((show,index) => { %>
                                 <tr class="align-middle">
                                     <td><%= index %></td>
-                                    <td><img src="<%= row.Image %>" width="50" class="img-thumbnail" /></td>
-                                    <td><%= row.name %></td>
-                                    <td><%= row.email %></td>
-                                    <td><%= row.phone %></td>
+                                    <td><img src="<%= show.Image %>" width="50" class="img-thumbnail" /></td>
+                                    <td><%= show.name %></td>
+                                    <td><%= show.email %></td>
+                                    <td><%= show.phone %></td>
                                     <td>
-                                        <a href="/edit/<%= row._id %>" class="text-success"><i class="fas fa-edit fa-lg mx-1"></i></a>
-                                        <a href="/delete/<%= row._id %>" class="text-danger"><i class="fas fa-trash fa-lg mx-1"></i></a>
+                                        <a href="/edit/<%= show._id %>" class="text-success"><i class="fas fa-edit fa-lg mx-1"></i></a>
+                                        <a href="/delete/<%= show._id %>" class="text-danger"><i class="fas fa-trash fa-lg mx-1"></i></a>
                                     </td>
                                 </tr>
                             <% }) %>

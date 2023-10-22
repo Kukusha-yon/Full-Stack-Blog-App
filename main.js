@@ -40,14 +40,6 @@ app.use(session({
         httpOnly: true,
     }
 }))
-const userId = (req, res, next) => {
-    if (req.session.userID) {
-            res.redirect('/dashboard')
-    
-    } else {
-        res.redirect('login')
-    }
-}
 
 app.use((req,res,next) => {
     res.locals.message = req.session.message;

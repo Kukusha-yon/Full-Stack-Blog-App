@@ -2,14 +2,21 @@
     <li>
         <a href="blog" class="nav-link px-2 link-sencondary">Write a Blog</a>
     </li>
-    <li>
-        <a href="showBlog" class="nav-link px-2 link-sencondary">All Blogs</a>
+    <li >
+        <a href="/profile/:id/blog" class="nav-link px-2 link-sencondary">My Blogs</a>
     </li>
+    <li>
+        <a href="/blogs" class="nav-link px-2 link-sencondary">All Blogs</a>
+    </li>
+    <li>
+        <a href="/users" class="nav-link px-2 link-sencondary">Admin</a>
+    </li>
+   
 </ul>
-<div class="cardg">
-    <% if (blogs.length > 0 ) { %>
+<div class="cardg ">
+    <% if (blogs.length !=='' ) { %>
         <% blogs.forEach(blog=> { %>
-            <div class="card-list">
+            <div class="card align-items-center" style="width: 50%; margin-left: 25%; padding: 10px;">
                 <h5 class="fw-bold">
                     <%= blog.title %>
                 </h5>
@@ -21,14 +28,62 @@
                 <h5 class="fw-bold">
 
                 </h5>
-                <a href="/edit/<%= blog._id %>/blog" class="btn btn-primary btn-lg active" role="button"
-                    aria-pressed="true">Edit</a>
-                <a href="/delete/<%= blog._id %>/blog" class="btn btn-danger btn-lg active" role="button"
-                    aria-pressed="true">Delete</a>
-            
+                <div style="margin-top: 10px; display:flex; width: 88%; justify-content: space-evenly;">
+                    <a href="/edit/<%= blog._id %>/blog" class="btn btn-primary btn-lg active" role="button"
+                        aria-pressed="true">Edit</a>
+                    <a href="/delete/<%= blog._id %>/blog" class="btn btn-danger btn-lg active" role="button"
+                        aria-pressed="true">Delete</a>
+                </div>
+                <br>
+                <% blog.comments.forEach(comment=> { %>
+                    <div class="container mt-5">
+                        <div class="d-flex justify-content-center row">
+                            <div class="col-md-8">
+                                <div class="d-flex flex-column comment-section" id="myGroup">
+                                    <div class="bg-white p-2">
+                                        <div class="d-flex flex-row user-info"><img class="rounded-circle"
+                                                src="https://i.imgur.com/RpzrMR2.jpg" width="40">
+                                            <div class="d-flex flex-column justify-content-start ml-2"><span
+                                                    class="d-block font-weight-bold name">Marry Andrews</span><span
+                                                    class="date text-black-50">Shared publicly - Jan 2020</span></div>
+                                        </div>
+                                        <div class="mt-2">
+                                            <p class="comment-text">
+                                                <%= comment.text %>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="bg-white p-2">
+                                        <div class="d-flex flex-row fs-12">
+                                            <div class="like p-2 cursor"><i class="fa fa-thumbs-o-up"></i><span
+                                                    class="ml-1">Like</span></div>
+                                            <div class="like p-2 cursor action-collapse" data-toggle="collapse"
+                                                aria-expanded="true" aria-controls="collapse-2" href="#collapse-2"><i
+                                                    class="fa fa-share"></i><span class="ml-1">Share</span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <% }) %>
 
-                <% }) %>
+                        <br>
+                        <form action="/post/<%= blog.id  %>/comments"  class="form-control form-control-sm" method="post">
+                            <div class="form-outline">
+                                <textarea  class="form-control"  name="text" rows="3"></textarea>
+                                <label class="form-label" for="text"></label>
+                            </div>            <br>
+                            <button type="submit" name="comment" class="btn btn-primary btn-lg"> Post Comment</button>
+                            <a href="#" class="btn btn-primary btn-lg active" role="button"
+                                aria-pressed="true">Cancel</a>
 
-                <%}%>
-        </div>            
+                        </form>
+                        <hr>
+
+
+                        <% }) %>
+
+                            <%}%>
+            </div>
 </div>

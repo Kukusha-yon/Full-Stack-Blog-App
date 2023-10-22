@@ -7,7 +7,7 @@ const multer = require('multer');
 const fs = require('fs');
 const bcrypt = require('bcrypt');
 const user = require('../models/user');
-const { send } = require('process');
+const joi = require('joi')
 
 
 
@@ -31,9 +31,9 @@ router.get('/', (req, res) => {
 })
 
 //session 
-const userID = (req, res, next) => {
+const userId = (req, res, next) => {
     if (req.session.user) {
-        res.redirect('/users')
+        res.redirect('/blogs')
     } else {
         res.redirect('login')
     }
@@ -48,7 +48,28 @@ router.get('/add', (req, res) => {
 })
 
 router.post('/add', upload, async (req, res) => {
+    const userSchema = joi.object(
+        {
+            name: joi.string()
+                .alphanum()
+                .min(3)
+                .max(30)
+                .required(),
+            email: joi.string()
+                .email({
+                    minDomainSegments: 2,
+                    tlds: { allow: ["com", "net"] }
+                }),
+            password: joi.string(),
+            role: joi.string().valid('user', 'admin'),
+
+        }
+    )
     try {
+        const dataCorrect = userSchema.validate(req.body)
+        if(dataCorrect.error.details){
+         res.render('tryagain');
+        }
         const { password } = req.body;
         const hashPassword = await bcrypt.hash(password, 10);
         const user = new User({
@@ -74,23 +95,6 @@ router.get('/login', (req, res) => {
 })
 
 router.post('/login', async (req, res) => {
-    // const Schema = joi.object(
-    //     {
-    //         name: joi.string()
-    //             .alphanum()
-    //             .min(3)
-    //             .max(30)
-    //             .required(),
-    //         email: joi.string()
-    //             .email({
-    //                 minDomainSegments: 2,
-    //                 tlds: { allow: ["com", "net"] }
-    //             }),
-    //         password: joi.string(),
-    //         role: joi.string().valid('user', 'admin'),
-
-    //     }
-    // )
     const { email, password } = req.body;
     const user = await User.findOne({ email })
     if (!user) {
@@ -102,7 +106,7 @@ router.post('/login', async (req, res) => {
         return res.status(400).render('tryagain')
 
     }
-    console.log('log1')
+    console.log('log2')
     req.session.user = {
         user: user._id,
         role: user.role,
@@ -127,13 +131,17 @@ router.get('/logout', (req, res) => {
 
 router.get('/users', async (req, res) => {
     try {
-        if(req.session.user.role === 'admin'){
-            const users = await User.find()
-            res.render('userBlog', { title: 'Blog', users: users })
+        if (req.session.user) {
+            if (req.session.user.role === 'admin') {
+                const users = await User.find()
+                res.render('userBlog', { title: 'Blog', users: users })
+            } else {
+                res.send('you do not have previleges !!')
+            }
         } else {
             res.redirect('/login')
         }
-        
+
     } catch (err) {
         res.json({ message: err.message })
     }
