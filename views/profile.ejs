@@ -2,9 +2,6 @@
     <li>
         <a href="blog" class="nav-link px-2 link-sencondary">Write a Blog</a>
     </li>
-    <li >
-        <a href="/profile/:id/blog" class="nav-link px-2 link-sencondary">My Blogs</a>
-    </li>
     <li>
         <a href="/blogs" class="nav-link px-2 link-sencondary">All Blogs</a>
     </li>
@@ -14,8 +11,8 @@
    
 </ul>
 <div class="cardg ">
-    <% if (blogs.length !=='' ) { %>
-        <% blogs.forEach(blog=> { %>
+    <% if (author.length !=='' ) { %>
+        <% author.forEach(blog=> { %>
             <div class="card align-items-center" style="width: 50%; margin-left: 25%; padding: 10px;">
                 <h5 class="fw-bold">
                     <%= blog.title %>
@@ -23,7 +20,7 @@
                 <p>
                     <%= blog.content %>
                 </p>
-                <img src="<%= blog.Image %>" alt="Image" style="max-width: 200px;">
+                <img src="<%= blog.Image %>" alt="Image"  class="img-fluid" style="max-width: 200px;">
 
                 <h5 class="fw-bold">
 

@@ -7,7 +7,7 @@ const multer = require('multer');
 const fs = require('fs');
 const bcrypt = require('bcrypt');
 const user = require('../models/user');
-const joi = require('joi')
+// const joi = require('joi')
 
 
 
@@ -48,28 +48,28 @@ router.get('/add', (req, res) => {
 })
 
 router.post('/add', upload, async (req, res) => {
-    const userSchema = joi.object(
-        {
-            name: joi.string()
-                .alphanum()
-                .min(3)
-                .max(30)
-                .required(),
-            email: joi.string()
-                .email({
-                    minDomainSegments: 2,
-                    tlds: { allow: ["com", "net"] }
-                }),
-            password: joi.string(),
-            role: joi.string().valid('user', 'admin'),
+    // const userSchema = joi.object(
+    //     {
+    //         name: joi.string()
+    //             .alphanum()
+    //             .min(3)
+    //             .max(30)
+    //             .required(),
+    //         email: joi.string()
+    //             .email({
+    //                 minDomainSegments: 2,
+    //                 tlds: { allow: ["com", "net"] }
+    //             }),
+    //         password: joi.string(),
+    //         role: joi.string().valid('user', 'admin'),
 
-        }
-    )
+    //     }
+    // )
     try {
-        const dataCorrect = userSchema.validate(req.body)
-        if(dataCorrect.error.details){
-         res.render('tryagain');
-        }
+        // const dataCorrect = userSchema.validate(req.body)
+        // if (dataCorrect.error.details) {
+        //     return res.send('Please Try again !!');
+        // }
         const { password } = req.body;
         const hashPassword = await bcrypt.hash(password, 10);
         const user = new User({
@@ -103,16 +103,18 @@ router.post('/login', async (req, res) => {
     console.log('log1')
     const isMatched = await bcrypt.compare(password, user.password)
     if (!isMatched) {
-        return res.status(400).render('tryagain')
+        return res.status(400).send('Plese Try Again !!')
 
     }
     console.log('log2')
     req.session.user = {
         user: user._id,
         role: user.role,
-    };
-
+        author: user._id
+   };
+    console.log('log3')
     res.redirect('/blogs');
+    console.log('log4')
 })
 
 
@@ -236,12 +238,16 @@ router.post('/blog', upload, async (req, res) => {
 })
 
 // //profile blog
-router.get("/profile/:id/blog", async (req, res) => {
+router.get('/profile/:id', async (req, res) => {
+
     try {
         const id = req.params.id
-        const blogs = await Blog.find({ author: id });
+        console.log('id1')
+        const blogs = await Blog.find({ author: id }).populate('author');
+        // console.log(blogs)
         res.render('showBlog', { blogs: blogs })
         // res.json(blogs);
+        console.log('id1')
     } catch (error) {
         res.status(500).send('An error occurred while retrieving the blogs.');
     }
@@ -251,7 +257,7 @@ router.get("/profile/:id/blog", async (req, res) => {
 router.get('/blogs', async (req, res) => {
     try {
         const blogs = await Blog.find().populate('comments')
-        res.render('showBlog', { title: 'Blog', blogs: blogs })
+        res.render('showBlog', { title: 'Blog', blogs: blogs ,_id:req.session.user.user})
     } catch (err) {
         res.json({ message: err.message })
     }
