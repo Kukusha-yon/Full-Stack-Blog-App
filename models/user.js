@@ -26,10 +26,9 @@ const userSchema = new mongoose.Schema({
         enum: ['user', 'admin'],
         default: 'user'
     },
-    // user: {
-    //     type: mongoose.Schema.Types.ObjectId,
-    //     ref: "blog",
-    //   },
+    blogPosts: [{ 
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: 'Blog' }],
 
 },
 {

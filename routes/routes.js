@@ -181,8 +181,8 @@ router.post('/update/:id', upload, async (req, res) => {
         name: req.body.name,
         email: req.body.email,
         phone: req.body.phone,
-        mage: req.body.image,
-        image: new_image,
+        Image: req.body.image,
+        // image: new_image,
     })
     req.session.message = {
         type: 'succes',
@@ -245,7 +245,7 @@ router.get('/profile/:id', async (req, res) => {
         console.log('id1')
         const blogs = await Blog.find({ author: id }).populate('author');
         // console.log(blogs)
-        res.render('showBlog', { blogs: blogs })
+        res.render('profile', { blogs: blogs })
         // res.json(blogs);
         console.log('id1')
     } catch (error) {
@@ -256,6 +256,7 @@ router.get('/profile/:id', async (req, res) => {
 // // show blogs
 router.get('/blogs', async (req, res) => {
     try {
+        const Image = req.body.Image
         const blogs = await Blog.find().populate('comments')
         res.render('showBlog', { title: 'Blog', blogs: blogs ,_id:req.session.user.user})
     } catch (err) {

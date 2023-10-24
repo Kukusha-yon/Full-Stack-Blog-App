@@ -1,44 +1,36 @@
-   
-<ul class="nav col-12 col-md-auto mb-2 justify-contetnt-center mb-md-0">
-    <li>
-        <a href="blog" class="nav-link px-2 link-sencondary">Write a Blog</a>
-    </li>
-    <%if(locals._id){%>
-    <li>    
-        <a href="/profile/<%=locals._id %>" class="nav-link px-2 link-sencondary">My Blogs</a>
-    </li>
-    <% } %>
-   
-    <li>
-        <a href="/blogs" class="nav-link px-2 link-sencondary">All Blogs</a>
-    </li>
-    <li>
-        <a href="/users" class="nav-link px-2 link-sencondary">Admin</a>
-    </li>
-</ul>
-
 <div class="cardg ">
 
     <% if (blogs.length > 0 ) { %>
-    <% blogs.forEach(blog=> { %>
-            <div class="card align-items-center" style="width: 50%; margin-left: 25%; padding: 10px;">
-                <h5 class="fw-bold">
-                    <%= blog.title %>
-                </h5>
-                <p>
-                    <%= blog.content %>
-                </p>
-                <img src="<%= blog.Image %>" alt="Image" class="img-fluid" style="max-width: 200px;">
-
-                <h5 class="fw-bold">
-
-                </h5>
-                <div style="margin-top: 10px; display:flex; width: 88%; justify-content: space-evenly;">
-                    <a href="/edit/<%= blog._id %>/blog" class="btn btn-primary btn-lg active" role="button"
-                        aria-pressed="true">Edit</a>
-                    <a href="/delete/<%= blog._id %>/blog" class="btn btn-danger btn-lg active" role="button"
-                        aria-pressed="true">Delete</a>
-                </div>
+        <% blogs.forEach(blog=> { %>
+            <div class="clearfix mt-40">
+                <ul class="xsearch-items">
+                    <li class="search-item">
+                        <div class="search-item-img">
+                            <a href="#">
+                                <img src="https://bootdey.com/img/Content/avatar/avatar2.png" width="70" height="70">
+                            </a>
+                        </div>
+                        <div class="search-item-content">
+                            <h3 class="search-item-caption"> <%= blog.title %></h3>
+    
+                            <div class="search-item-meta mb-15">
+                                <ul class="list-inline">
+                                    <li class="time">November 10, 2017‎</li>
+                                    <li><a href="#">0 Comments</a></li>
+                                    <li class="pr-0">in</li>
+                                    <li class="pl-0"><a href="#">Design</a></li>
+                                </ul>
+                            </div>
+                            <div>
+                                <%= blog.content %>
+                            </div>
+                            <div>
+                                <img src="<%= blog.Image %>" alt="Image" class="img-fluid" style="max-width: 200px;">
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
                 <br>
                 <% blog.comments.forEach(comment=> { %>
                     <div class="container mt-5">

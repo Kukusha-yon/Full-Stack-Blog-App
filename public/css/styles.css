@@ -45,7 +45,7 @@ a {
     height: 330px;
 } */
 
-.cardg {
+/* .cardg {
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
@@ -55,7 +55,7 @@ a {
     width: 60%;
     padding: 100px;
 
-}
+} */
 
 .formImage {
     display: flex;

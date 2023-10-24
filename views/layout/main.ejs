@@ -40,15 +40,31 @@
                         <li>
                             <a href="/" class="nav-link px-2 link-sencondary">Home</a>
                         </li>
+                        <%if(locals._id){%> 
+                            <li>
+                                <a href="blog" class="nav-link px-2 link-sencondary">Write a Blog</a>
+                            </li>
+                            <li>
+                                <a href="/profile/<%=locals._id %>" class="nav-link px-2 link-sencondary">My Blogs</a>
+                            </li>
+                            <li>
+                                <a href="/blogs" class="nav-link px-2 link-sencondary">All Blogs</a>
+                            </li>
+                            <li>
+                                <a href="/users" class="nav-link px-2 link-sencondary">Admin</a>
+                            </li>  
+                        <li>
+                            <a href="/logout" class="nav-link px-2 link-sencondary">Log Out</a>
+                        </li>
+                    <% }  else {%>
                         <li>
                             <a href="/login" class="nav-link px-2 link-sencondary">Login</a>
                         </li>
                         <li>
                             <a href="/add" class="nav-link px-2 link-sencondary">Signup</a>
                         </li>
-                        <li>
-                            <a href="/logout" class="nav-link px-2 link-sencondary">Log Out</a>
-                        </li>
+                        <% } %>
+                        
                     </ul>
                     <!-- <div class="col-md-3 text-end">
                         <form method="post" action="/search">
