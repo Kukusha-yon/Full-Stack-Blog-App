@@ -36,6 +36,7 @@ app.use(session({
         collectionName: "session",
     }),
     cookie: {
+        // secure: true,
         maxAge: 86000000,
         httpOnly: true,
     }

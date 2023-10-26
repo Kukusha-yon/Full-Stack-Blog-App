@@ -33,11 +33,11 @@ const blogSchema = new mongoose.Schema({
     {
         timestamps: true,
     });
-// blogSchema.virtual("comment", {
-//     ref: "Comment",
-//     foreignField: "comments",
-//     localField: "_id"
-// });
+blogSchema.virtual("comment", {
+    ref: "Comment",
+    foreignField: "comments",
+    localField: "_id"
+});
 
 const Blog = mongoose.model('blogs', blogSchema)
 module.exports = Blog;

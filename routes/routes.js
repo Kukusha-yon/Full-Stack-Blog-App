@@ -7,7 +7,7 @@ const multer = require('multer');
 const fs = require('fs');
 const bcrypt = require('bcrypt');
 const user = require('../models/user');
-// const joi = require('joi')
+const joi = require('joi')
 
 
 
@@ -31,15 +31,15 @@ router.get('/', (req, res) => {
 })
 
 //session 
-const userId = (req, res, next) => {
-    if (req.session.user) {
-        res.redirect('/blogs')
-    } else {
-        res.redirect('login')
-    }
+// const userId = (req, res, next) => {
+//     if (req.session.user) {
+//         res.redirect('/blogs')
+//     } else {
+//         res.redirect('login')
+//     }
 
-    next();
-}
+//     next();
+// }
 
 //signup
 
@@ -48,28 +48,28 @@ router.get('/add', (req, res) => {
 })
 
 router.post('/add', upload, async (req, res) => {
-    // const userSchema = joi.object(
-    //     {
-    //         name: joi.string()
-    //             .alphanum()
-    //             .min(3)
-    //             .max(30)
-    //             .required(),
-    //         email: joi.string()
-    //             .email({
-    //                 minDomainSegments: 2,
-    //                 tlds: { allow: ["com", "net"] }
-    //             }),
-    //         password: joi.string(),
-    //         role: joi.string().valid('user', 'admin'),
+    const userSchema = joi.object(
+        {
+            name: joi.string()
+                .alphanum()
+                .min(3)
+                .max(30)
+                .required(),
+            email: joi.string()
+                .email({
+                    minDomainSegments: 2,
+                    tlds: { allow: ["com", "net"] }
+                }),
+            password: joi.string(),
+            role: joi.string().valid('user', 'admin'),
 
-    //     }
-    // )
+        }
+    )
     try {
-        // const dataCorrect = userSchema.validate(req.body)
-        // if (dataCorrect.error.details) {
-        //     return res.send('Please Try again !!');
-        // }
+        const dataCorrect = userSchema.validate(req.body)
+        if (dataCorrect.error.details) {
+            return res.send('Please Try again !!');
+        }
         const { password } = req.body;
         const hashPassword = await bcrypt.hash(password, 10);
         const user = new User({
@@ -100,21 +100,21 @@ router.post('/login', async (req, res) => {
     if (!user) {
         return res.status(400).send('User not found !!!')
     }
-    console.log('log1')
+ 
     const isMatched = await bcrypt.compare(password, user.password)
     if (!isMatched) {
         return res.status(400).send('Plese Try Again !!')
 
     }
-    console.log('log2')
+   
     req.session.user = {
         user: user._id,
         role: user.role,
-        author: user._id
+        
    };
-    console.log('log3')
+    
     res.redirect('/blogs');
-    console.log('log4')
+   
 })
 
 
@@ -135,8 +135,8 @@ router.get('/users', async (req, res) => {
     try {
         if (req.session.user) {
             if (req.session.user.role === 'admin') {
-                const users = await User.find()
-                res.render('userBlog', { title: 'Blog', users: users })
+                const user = await User.find()
+                res.render('userBlog', { title: 'Blog', users: user })
             } else {
                 res.send('you do not have previleges !!')
             }
@@ -181,7 +181,7 @@ router.post('/update/:id', upload, async (req, res) => {
         name: req.body.name,
         email: req.body.email,
         phone: req.body.phone,
-        Image: req.body.image,
+        Image: req.body.Image,
         // image: new_image,
     })
     req.session.message = {
@@ -242,12 +242,12 @@ router.get('/profile/:id', async (req, res) => {
 
     try {
         const id = req.params.id
-        console.log('id1')
+       
         const blogs = await Blog.find({ author: id }).populate('author');
-        // console.log(blogs)
-        res.render('profile', { blogs: blogs })
+    
+        res.render('profile', { blogs: blogs,})
         // res.json(blogs);
-        console.log('id1')
+  
     } catch (error) {
         res.status(500).send('An error occurred while retrieving the blogs.');
     }
@@ -256,9 +256,14 @@ router.get('/profile/:id', async (req, res) => {
 // // show blogs
 router.get('/blogs', async (req, res) => {
     try {
-        const Image = req.body.Image
+        
         const blogs = await Blog.find().populate('comments')
-        res.render('showBlog', { title: 'Blog', blogs: blogs ,_id:req.session.user.user})
+        res.render('showBlog', { 
+            title: 'Blog',
+            blogs: blogs ,
+            _id:req.session.user.user,
+            users: req.body
+        })
     } catch (err) {
         res.json({ message: err.message })
     }
@@ -273,7 +278,7 @@ router.get('/edit/:id/blog', async (req, res) => {
         if (blogs == null) {
             res.redirect('/')
         } else {
-            res.render('editBlogs', { title: "Edit blog", blogs: blogs, })
+            res.render('editBlogs', { title: "Edit blog", blogs: blogs })
         }
     } catch (error) {
         res.redirect('/blogs')
@@ -289,7 +294,7 @@ router.post('/update/:id/blog', upload, async (req, res) => {
             title: req.body.title,
             email: req.body.email,
             content: req.body.content,
-            image: req.body.image,
+            Image: req.body.image,
             // image: new_image,
             references: req.body.references
         })
@@ -313,9 +318,11 @@ router.get('/delete/:id/blog', async (req, res) => {
 
     try {
         await Blog.findByIdAndRemove(id);
+        // res.send('Done')
         res.redirect('/blogs');
     } catch (error) {
         console.log(error);
+        // res.send('Sorry')
         res.render('error');
     }
 });
@@ -337,12 +344,12 @@ router.post('/post/:id/comments', async (req, res) => {
         // res.send('done')
         const blog = await Blog.findById(req.params.id);
         blog.comments.push(comment);
-        // await Promise.all([blog.save(), comment.save()])
+        
         blog.save()
         res.redirect('/blogs');
     } catch (error) {
         console.log('Error creating comment:', error);
-        // res.redirect('/');
+      
     }
 
 })

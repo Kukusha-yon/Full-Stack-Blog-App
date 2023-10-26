@@ -1,103 +1,101 @@
-   
-<ul class="nav col-12 col-md-auto mb-2 justify-contetnt-center mb-md-0"> 
+<ul class="nav col-12 col-md-auto mb-2 justify-contetnt-center mb-md-0">
     <li>
         <a href="/blogs" class="nav-link px-2 link-sencondary">Back</a>
     </li>
-   
+
 </ul>
 
 <div class="cardg ">
 
-    <% if (blogs.length > 0 ) { %>
-    <% blogs.forEach(blog=> { %>
-        <div class="clearfix mt-40">
-            <ul class="xsearch-items">
-                <li class="search-item">
-                    <div class="search-item-img">
-                        <a href="#">
-                            <img src="https://bootdey.com/img/Content/avatar/avatar2.png" width="70" height="70">
-                        </a>
-                    </div>
-                    <div class="search-item-content">
-                        <h3 class="search-item-caption"> <%= blog.title %></h3>
+    <% if (blogs.length> 0 ) { %>
+        <% blogs.forEach(blog=> { %>
+            <div class="clearfix mt-40">
+                <ul class="xsearch-items">
+                    <li class="search-item">
+                        
+                        <div class="search-item-img">
+                            <a href="#">
+                                <img src="https://bootdey.com/img/Content/avatar/avatar2.png" width="70" height="70">
+                            </a>
+                        </div>
+                        <div class="search-item-content">
+                            <h3 class="search-item-caption">
+                                <%= blog.title %>
+                            </h3>
+                            <div>
+                                <%= blog.content %>
+                            </div>
+                            <div class="search-item-meta mb-15">
+                                <ul class="list-inline">
+                                    <li class="time">November 10, 2023‎</li>
+                                    <li><a href="#">0 Comments</a></li>
+                                </ul>
+                            </div>
+                            <div>
+                                <img src="<%= blog.Image %>" alt="Image" class="img-fluid" style="max-width: 200px;">
+                            </div>
+                            <div style="justify-content: space-evenly;">
+                                <a href="/edit/<%= blog._id %>/blog" class="btn btn-outline active "
+                                    aria-pressed="true" role="button" type="button">Edit</a>
+                                <a href="/delete/<%= blog._id %>/blog"  type="submit"  class="btn btn-outline-danger active "
+                                    aria-pressed="true" role="button" type="button">Del</a>
+                            </div>
 
-                        <div class="search-item-meta mb-15">
-                            <ul class="list-inline">
-                                <li class="time">November 10, 2017‎</li>
-                                <li><a href="#">0 Comments</a></li>
-                                <li class="pr-0">in</li>
-                                <li class="pl-0"><a href="#">Design</a></li>
-                            </ul>
                         </div>
-                        <div>
-                            <%= blog.content %>
-                        </div>
-                        <div>
-                            <img src="<%= blog.Image %>" alt="Image" class="img-fluid" style="max-width: 200px;">
-                        </div>
-                        <div style="margin-top: 10px; display:flex; width: 88%; justify-content: space-evenly;">
-                            <a href="/edit/<%= blog._id %>/blog" class="btn btn-primary btn-lg active" role="button"
-                                aria-pressed="true">Edit</a>
-                            <a href="/delete/<%= blog._id %>/blog" class="btn btn-danger btn-lg active" role="button"
-                                aria-pressed="true">Delete</a>
-                        </div>
-                    </div>
-                </li>
-            </ul>
-        </div>
-                <% blog.comments.forEach(comment=> { %>
-                    <div class="container mt-5">
-                        <div class="d-flex justify-content-center row">
-                            <div class="col-md-8">
-                                <div class="d-flex flex-column comment-section" id="myGroup">
-                                    <div class="bg-white p-2">
-                                        <div class="d-flex flex-row user-info"><img class="rounded-circle"
-                                                src="https://i.imgur.com/RpzrMR2.jpg" width="40">
-                                            <div class="d-flex flex-column justify-content-start ml-2"><span
-                                                    class="d-block font-weight-bold name">Marry Andrews</span><span
-                                                    class="date text-black-50">Shared publicly - Jan 2020</span>
-                                            </div>
-                                        </div>
-                                        <div class="mt-2">
-                                            <p class="comment-text">
-                                                <%= comment.text %>
-                                            </p>
+                    </li>
+                </ul>
+            </div>
+            <% blog.comments.forEach(comment=> { %>
+                <div class="container mt-5">
+                    <div class="d-flex justify-content-center row">
+                        <div class="col-md-8">
+                            <div class="d-flex flex-column comment-section" id="myGroup">
+                                <div class="bg-white p-2">
+                                    <div class="d-flex flex-row user-info"><img class="rounded-circle"
+                                            src="https://i.imgur.com/RpzrMR2.jpg" width="40">
+                                        <div class="d-flex flex-column justify-content-start ml-2"><span
+                                                class="d-block font-weight-bold name">Marry Andrews</span><span
+                                                class="date text-black-50">Shared publicly - Jan 2020</span>
                                         </div>
                                     </div>
-                                    <div class="bg-white p-2">
-                                        <div class="d-flex flex-row fs-12">
-                                            <div class="like p-2 cursor"><i class="fa fa-thumbs-o-up"></i><span
-                                                    class="ml-1">Like</span></div>
-                                            <div class="like p-2 cursor action-collapse" data-toggle="collapse"
-                                                aria-expanded="true" aria-controls="collapse-2" href="#collapse-2">
-                                                <i class="fa fa-share"></i><span class="ml-1">Share</span>
-                                            </div>
+                                    <div class="mt-2">
+                                        <p class="comment-text">
+                                            <%= comment.text %>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="bg-white p-2">
+                                    <div class="d-flex flex-row fs-12">
+                                        <div class="like p-2 cursor"><i class="fa fa-thumbs-o-up"></i><span
+                                                class="ml-1">Like</span></div>
+                                        <div class="like p-2 cursor action-collapse" data-toggle="collapse"
+                                            aria-expanded="true" aria-controls="collapse-2" href="#collapse-2">
+                                            <i class="fa fa-share"></i><span class="ml-1">Share</span>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                </div>
+                <% }) %>
+
+                    <br>
+                    <form action="/post/<%= blog.id  %>/comments" class="form-control form-control-sm" method="post">
+                        <div class="form-outline">
+                            <textarea class="form-control" name="text" rows="3"></textarea>
+                            <label class="form-label" for="text"></label>
+                        </div> <br>
+                        <button type="submit" name="comment" class="btn btn-primary btn-sm active"> Post
+                            Comment</button>
+                        <a href="#" class="btn btn-primary btn-sm active" role="button" aria-pressed="true">Cancel</a>
+
+                    </form>
+                    <hr>
+
+
                     <% }) %>
 
-                        <br>
-                        <form action="/post/<%= blog.id  %>/comments" class="form-control form-control-sm"
-                            method="post">
-                            <div class="form-outline">
-                                <textarea class="form-control" name="text" rows="3"></textarea>
-                                <label class="form-label" for="text"></label>
-                            </div> <br>
-                            <button type="submit" name="comment" class="btn btn-primary btn-lg"> Post
-                                Comment</button>
-                            <a href="#" class="btn btn-primary btn-lg active" role="button"
-                                aria-pressed="true">Cancel</a>
-
-                        </form>
-                        <hr>
-
-
-                        <% }) %>
-
-                            <%}%>
-            </div>
+                        <%}%>
+</div>
 </div>
