@@ -68,20 +68,21 @@ router.post('/add', upload, async (req, res) => {
     try {
         const dataCorrect = userSchema.validate(req.body)
         if (dataCorrect.error.details) {
-            return res.send('Please Try again !!');
+            // return res.send('Please Try again !!');
+            const { password } = req.body;
+            const hashPassword = await bcrypt.hash(password, 10);
+            const user = new User({
+                name: req.body.name,
+                email: req.body.email,
+                phone: req.body.phone,
+                password: hashPassword,
+                Image: req.file.filename,
+                role: req.body.role
+            })
+            await user.save();
+            res.redirect('/login')
         }
-        const { password } = req.body;
-        const hashPassword = await bcrypt.hash(password, 10);
-        const user = new User({
-            name: req.body.name,
-            email: req.body.email,
-            phone: req.body.phone,
-            password: hashPassword,
-            Image: req.file.filename,
-            role: req.body.role
-        })
-        await user.save();
-        res.redirect('/login')
+       
     } catch (err) {
         console.error(err)
         res.redirect('/')
