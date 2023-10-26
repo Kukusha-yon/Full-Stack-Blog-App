@@ -31,15 +31,13 @@ router.get('/', (req, res) => {
 })
 
 //session 
-// const userId = (req, res, next) => {
-//     if (req.session.user) {
-//         res.redirect('/blogs')
-//     } else {
-//         res.redirect('login')
-//     }
-
-//     next();
-// }
+const userId = (req, res, next) => {
+    if (req.session.user === undefined) {
+        res.redirect('login') 
+    } else {
+        next();
+    } 
+}
 
 //signup
 
@@ -215,7 +213,7 @@ router.get('/blog', (req, res) => {
     res.render('blog')
 })
 
-router.post('/blog', upload, async (req, res) => {
+router.post('/blog', upload, userId, async (req, res) => {
     try {
         const blog = new Blog({
             title: req.body.title,
