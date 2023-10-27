@@ -7,7 +7,8 @@ const multer = require('multer');
 const fs = require('fs');
 const bcrypt = require('bcrypt');
 const user = require('../models/user');
-const joi = require('joi')
+const joi = require('joi');
+const { title } = require('process');
 
 
 
@@ -33,10 +34,11 @@ router.get('/', (req, res) => {
 //session 
 const userId = (req, res, next) => {
     if (req.session.user === undefined) {
-        res.redirect('login') 
+        res.render('login')
     } else {
-        next();
+        next() 
     } 
+  
 }
 
 //signup
@@ -109,7 +111,8 @@ router.post('/login', async (req, res) => {
     req.session.user = {
         user: user._id,
         role: user.role,
-        
+        name:user.name,
+        Image: user.Image        
    };
     
     res.redirect('/blogs');
@@ -213,7 +216,7 @@ router.get('/blog', (req, res) => {
     res.render('blog')
 })
 
-router.post('/blog', upload, userId, async (req, res) => {
+router.post('/blog', userId,upload, async (req, res) => {
     try {
         const blog = new Blog({
             title: req.body.title,
@@ -244,7 +247,9 @@ router.get('/profile/:id', async (req, res) => {
        
         const blogs = await Blog.find({ author: id }).populate('author');
     
-        res.render('profile', { blogs: blogs,})
+        res.render('profile', { 
+            blogs: blogs,          
+        })
         // res.json(blogs);
   
     } catch (error) {
@@ -255,13 +260,14 @@ router.get('/profile/:id', async (req, res) => {
 // // show blogs
 router.get('/blogs', async (req, res) => {
     try {
-        
-        const blogs = await Blog.find().populate('comments')
+        const blogs = await Blog.find().populate('comments').populate('author')
         res.render('showBlog', { 
             title: 'Blog',
             blogs: blogs ,
             _id:req.session.user.user,
-            users: req.body
+            name:req.session.user.name,
+            Image:req.session.user.Image
+           
         })
     } catch (err) {
         res.json({ message: err.message })

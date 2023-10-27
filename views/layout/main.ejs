@@ -54,11 +54,13 @@
                             <li>
                                 <a href="/users" class="nav-link px-2 link-sencondary">Admin</a>
                             </li> 
-                            
+                           <li>
+                            <a href="#" class="nav-link px-2 link-sencondary"><%= locals.name %></a>
+                           </li>
                             <li>
-                                <img src="/public/uploads/<%=locals._id.Image %>" width="50" class="img-thumbnail" />
+                                <img src="<%= locals.Image %>" width="50" class="img-thumbnail" style="border-radius: 50px;"/>
                             </li>
-                        
+                         
                         <li>
                             <a href="/logout" class="nav-link px-2 link-sencondary">Log Out</a>
                         </li>
