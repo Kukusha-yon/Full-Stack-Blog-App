@@ -3,23 +3,34 @@
     <% if (blogs.length> 0 ) { %>
         <% blogs.forEach(blog=> { %>
             <div class="clearfix mt-40">
-                <ul class="xsearch-items">
+                <ul class="xsearch-items" style="list-style-type: none;">
                     <li class="search-item">
+
                         <div class="search-item-img">
                             <a href="#">
-                                <img src="<%= locals.Image %>" width="70" height="70">
+                                <img src="<%= locals.Image %>" width="70" height="70" style="border-radius: 50px;"/>
                             </a>
                         </div>
+                        <br>
                         <div class="search-item-content">
-                            <h3 class="search-item-caption">
-                                <%= blog.title %>
-                            </h3>
-                            <div>
-                                <%= blog.content %>
+                            <div class="card">
+                                <div class="row no-gutters">
+                                    <div class="col-auto">
+                                        <img src="<%= blog.Image %>" class="img-fluid" alt="">
+                                    </div>
+                                    <div class="col">
+                                        <div class="card-block px-2">
+                                            <h4 class="card-title">
+                                                <%= blog.title %>
+                                            </h4>
+                                            <p class="card-text">
+                                                <%= blog.content %>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div>
-                                <img src="<%= blog.Image %>" alt="Image" class="img-fluid" style="max-width: 200px;">
-                            </div>
+
                             <div class="search-item-meta mb-15">
                                 <ul class="list-inline">
                                     <li class="time">November 10, 2023‎</li>
@@ -82,6 +93,6 @@
 
                     <% }) %>
 
-            <%}%>
+                        <%}%>
 </div>
 </div>

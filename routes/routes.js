@@ -115,7 +115,12 @@ router.post('/login', async (req, res) => {
 
     const isMatched = await bcrypt.compare(password, user.password)
     if (!isMatched) {
-        return res.status(400).send('Plese Try Again !!')
+        req.session.message = {
+            type: 'info',
+            message: 'Wrong Password!!!'
+        }
+        // return res.status(400).send('Plese Try Again !!')
+        return res.redirect('/login')
 
     }
 
@@ -253,7 +258,8 @@ router.post('/blog', upload, async (req, res) => {
 // //profile blog
 router.get('/profile/:id', async (req, res) => {
     try {
-        const blogs = await Blog.find().populate('author')
+        const id = req.params.id
+        const blogs = await Blog.find({author:id}).populate('author')
         res.render('profile', {
             blogs: blogs,
         })

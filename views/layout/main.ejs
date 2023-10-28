@@ -51,9 +51,8 @@
                             <li>
                                 <div class="dropdown">
                                     <a class="btn btn-secondary dropdown-toggle" href="#" role="button"
-                                        id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <img src="<%= locals.Image %>" width="50" class="img-thumbnail"
-                                             />
+                                        id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #fff; border-color:#fff; border-radius: 50px; padding: 0px;">
+                                        <img src="<%= locals.Image %>" width="50" height="50" class="img-thumbnail" style="border-radius: 80px; padding: 0%;" />
                                     </a>
 
                                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
@@ -62,8 +61,11 @@
                                         <li><a href="/profile/<%=locals._id %>" class="dropdown-item"><i
                                                     class="bi bi-journal-text"></i>Blogs</a></li>
                                         <li><a href="/users" class="dropdown-item">Admin</a></li>
-                                        <li><a href="/blogs" class="dropdown-item"><i class="bi bi-journals"></i>All</a></li>
-                                        <li><hr class="dropdown-divider"></li>
+                                        <li><a href="/blogs" class="dropdown-item"><i class="bi bi-journals"></i>All</a>
+                                        </li>
+                                        <li>
+                                            <hr class="dropdown-divider">
+                                        </li>
                                         <li><a href="/logout" class="dropdown-item">Log Out</a></li>
                                     </ul>
                                 </div>
