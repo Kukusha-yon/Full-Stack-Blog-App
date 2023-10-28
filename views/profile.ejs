@@ -12,12 +12,13 @@
             <div class="clearfix mt-40">
                 <ul class="xsearch-items">
                     <li class="search-item">
-                        
+                       
                         <div class="search-item-img">
                             <a href="#">
-                                <img src="<%= locals.Image%>" width="70" height="70">
+                                <img src="<%= locals.Image %>" width="70" height="70">
                             </a>
                         </div>
+                      
                         <div class="search-item-content">
                             <h3 class="search-item-caption">
                                 <%= blog.title %>
@@ -34,12 +35,14 @@
                             <div>
                                 <img src="<%= blog.Image %>" alt="Image" class="img-fluid" style="max-width: 200px;">
                             </div>
+                           
                             <div style="justify-content: space-evenly;">
                                 <a href="/edit/<%= blog._id %>/blog" class="btn btn-outline active "
                                     aria-pressed="true" role="button" type="button">Edit</a>
                                 <a href="/delete/<%= blog._id %>/blog"  type="submit"  class="btn btn-outline-danger active "
                                     aria-pressed="true" role="button" type="button">Del</a>
                             </div>
+                            
 
                         </div>
                     </li>
@@ -97,5 +100,6 @@
                     <% }) %>
 
                         <%}%>
-</div>
+
+  </div>
 </div>

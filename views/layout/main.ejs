@@ -23,7 +23,7 @@
 </head>
 
 <body>
-    <div class="container-xxl mh-100 px-md-5 bg-white shadow-lg" >
+    <div class="container-xxl mh-100 px-md-5 bg-white shadow-lg">
         <% if(message) { %>
             <div class="alert alert-dismissible fade show alert-<%= message.type %>" role="alert">
                 <button class="btn-close" type="button" data-bs-dismiss="alert" aria-label="close"></button>
@@ -35,52 +35,50 @@
                 <header
                     class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
                     <a href="/" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-docoration-none">
-                        <img src="https://revenuearchitects.com/wp-content/uploads/2017/02/Blog_pic-1030x584.png" width="229" height="68" alt="My-blog" />
+                        <img src="https://revenuearchitects.com/wp-content/uploads/2017/02/Blog_pic-1030x584.png"
+                            width="229" height="68" alt="My-blog" />
                     </a>
                     <ul class="nav col-12 col-md-auto mb-2 justify-contetnt-center mb-md-0">
                         <li>
                             <a href="/" class="nav-link px-2 link-sencondary">Home</a>
                         </li>
-                        <%if(locals._id){%> 
+                        <%if(locals._id){%>
                             <li>
-                                <a href="blog" class="nav-link px-2 link-sencondary"><i class="bi bi-pencil-square"></i>Write</a>
+                                <a href="#" class="nav-link px-2 link-sencondary">
+                                    <%= locals.name %>
+                                </a>
                             </li>
                             <li>
-                                <a href="/profile/<%=locals._id %>" class="nav-link px-2 link-sencondary"><i class="bi bi-journal-text"></i>Blogs</a>
-                            </li>
-                            <li>
-                                <a href="/blogs" class="nav-link px-2 link-sencondary"><i class="bi bi-journals"></i>All</a>
-                            </li>
-                            <li>
-                                <a href="/users" class="nav-link px-2 link-sencondary">Admin</a>
-                            </li> 
-                           <li>
-                            <a href="#" class="nav-link px-2 link-sencondary"><%= locals.name %></a>
-                           </li>
-                            <li>
-                                <img src="<%= locals.Image %>" width="50" class="img-thumbnail" style="border-radius: 50px;"/>
-                            </li>
-                         
-                        <li>
-                            <a href="/logout" class="nav-link px-2 link-sencondary">Log Out</a>
-                        </li>
-                    <% }  else {%>
-                        <li>
-                            <a href="/login" class="nav-link px-2 link-sencondary">Login</a>
-                        </li>
-                        <li>
-                            <a href="/add" class="nav-link px-2 link-sencondary">Signup</a>
-                        </li>
-                        <% } %>
-                        
-                    </ul>
-                    <!-- <div class="col-md-3 text-end">
-                        <form method="post" action="/search">
-                            <input type="search" name="searchTerm" class="form-content" placeholder="search..."
-                                aria-label="search">
-                        </form>
-                    </div> -->
+                                <div class="dropdown">
+                                    <a class="btn btn-secondary dropdown-toggle" href="#" role="button"
+                                        id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <img src="<%= locals.Image %>" width="50" class="img-thumbnail"
+                                             />
+                                    </a>
 
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                        <li><a href="blog" class="dropdown-item"><i
+                                                    class="bi bi-pencil-square"></i>Write</a></li>
+                                        <li><a href="/profile/<%=locals._id %>" class="dropdown-item"><i
+                                                    class="bi bi-journal-text"></i>Blogs</a></li>
+                                        <li><a href="/users" class="dropdown-item">Admin</a></li>
+                                        <li><a href="/blogs" class="dropdown-item"><i class="bi bi-journals"></i>All</a></li>
+                                        <li><hr class="dropdown-divider"></li>
+                                        <li><a href="/logout" class="dropdown-item">Log Out</a></li>
+                                    </ul>
+                                </div>
+                            </li>
+
+                            <% } else {%>
+                                <li>
+                                    <a href="/login" class="nav-link px-2 link-sencondary">Login</a>
+                                </li>
+                                <li>
+                                    <a href="/add" class="nav-link px-2 link-sencondary">Signup</a>
+                                </li>
+                                <% } %>
+
+                    </ul>
                 </header>
 
                 <main>

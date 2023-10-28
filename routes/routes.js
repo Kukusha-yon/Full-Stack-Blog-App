@@ -36,11 +36,10 @@ const userId = (req, res, next) => {
     if (req.session.user === undefined) {
         res.render('login')
     } else {
-        next() 
-    } 
-  
-}
+        next()
+    }
 
+}
 //signup
 
 router.get('/add', (req, res) => {
@@ -67,26 +66,32 @@ router.post('/add', upload, async (req, res) => {
     )
     try {
         const dataCorrect = userSchema.validate(req.body)
-        if (dataCorrect.error.details) {
-            // return res.send('Please Try again !!');
-            const { password } = req.body;
-            const hashPassword = await bcrypt.hash(password, 10);
-            const user = new User({
-                name: req.body.name,
-                email: req.body.email,
-                phone: req.body.phone,
-                password: hashPassword,
-                Image: req.file.filename,
-                role: req.body.role
-            })
-            await user.save();
-            res.redirect('/login')
+        if (dataCorrect.error) {
+            return res.send(dataCorrect.error.details).status(400)
         }
-       
+
     } catch (err) {
-        console.error(err)
-        res.redirect('/')
+        res.send('error happend!!').status(500)
+
     }
+    const { email } = req.body
+    let check = await User.findOne({ email })
+    if (check) {
+    return res.send('Email already available !!')
+    }
+    const { password } = req.body;
+    const hashPassword = await bcrypt.hash(password, 10);
+    const user = new User({
+        name: req.body.name,
+        email: req.body.email,
+        // phone: req.body.phone,
+        password: hashPassword,
+        Image: req.file.filename,
+        role: req.body.role
+    })
+    await user.save();
+    res.redirect('/login')
+
 })
 
 //Signin 
@@ -101,22 +106,22 @@ router.post('/login', async (req, res) => {
     if (!user) {
         return res.status(400).send('User not found !!!')
     }
- 
+
     const isMatched = await bcrypt.compare(password, user.password)
     if (!isMatched) {
         return res.status(400).send('Plese Try Again !!')
 
     }
-   
+
     req.session.user = {
         user: user._id,
         role: user.role,
-        name:user.name,
-        Image: user.Image        
-   };
-    
+        name: user.name,
+        Image: user.Image
+    };
+
     res.redirect('/blogs');
-   
+
 })
 
 
@@ -216,7 +221,7 @@ router.get('/blog', (req, res) => {
     res.render('blog')
 })
 
-router.post('/blog', userId,upload, async (req, res) => {
+router.post('/blog', upload, async (req, res) => {
     try {
         const blog = new Blog({
             title: req.body.title,
@@ -241,17 +246,13 @@ router.post('/blog', userId,upload, async (req, res) => {
 
 // //profile blog
 router.get('/profile/:id', async (req, res) => {
-
     try {
-        const id = req.params.id
-       
-        const blogs = await Blog.find({ author: id }).populate('author');
-    
-        res.render('profile', { 
-            blogs: blogs,          
+        const blogs = await Blog.find().populate('author')
+        res.render('profile', {
+            blogs: blogs,
         })
         // res.json(blogs);
-  
+
     } catch (error) {
         res.status(500).send('An error occurred while retrieving the blogs.');
     }
@@ -261,13 +262,13 @@ router.get('/profile/:id', async (req, res) => {
 router.get('/blogs', async (req, res) => {
     try {
         const blogs = await Blog.find().populate('comments').populate('author')
-        res.render('showBlog', { 
+        res.render('showBlog', {
             title: 'Blog',
-            blogs: blogs ,
-            _id:req.session.user.user,
-            name:req.session.user.name,
-            Image:req.session.user.Image
-           
+            blogs: blogs,
+            _id: req.session.user.user,
+            name: req.session.user.name,
+            Image: req.session.user.Image
+
         })
     } catch (err) {
         res.json({ message: err.message })
@@ -349,12 +350,12 @@ router.post('/post/:id/comments', async (req, res) => {
         // res.send('done')
         const blog = await Blog.findById(req.params.id);
         blog.comments.push(comment);
-        
+
         blog.save()
         res.redirect('/blogs');
     } catch (error) {
         console.log('Error creating comment:', error);
-      
+
     }
 
 })
