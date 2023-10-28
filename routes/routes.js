@@ -77,8 +77,13 @@ router.post('/add', upload, async (req, res) => {
     const { email } = req.body
     let check = await User.findOne({ email })
     if (check) {
-    return res.send('Email already available !!')
-    }
+        req.session.message = {
+            type: 'info',
+            message: 'Email already available !!!'
+        }
+        res.redirect('/add')
+    // return res.send('Email already available !!')
+    } else{
     const { password } = req.body;
     const hashPassword = await bcrypt.hash(password, 10);
     const user = new User({
@@ -91,6 +96,7 @@ router.post('/add', upload, async (req, res) => {
     })
     await user.save();
     res.redirect('/login')
+}
 
 })
 
