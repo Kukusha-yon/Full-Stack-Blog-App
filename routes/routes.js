@@ -259,9 +259,11 @@ router.post('/blog', upload, async (req, res) => {
 router.get('/profile/:id', async (req, res) => {
     try {
         const id = req.params.id
+        const user = await User.findById(id)
         const blogs = await Blog.find({author:id}).populate('author')
         res.render('profile', {
             blogs: blogs,
+            user: user
         })
         // res.json(blogs);
 
