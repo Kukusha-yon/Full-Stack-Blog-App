@@ -156,7 +156,11 @@ router.get('/users', async (req, res) => {
                 const user = await User.find()
                 res.render('userBlog', { title: 'Blog', users: user })
             } else {
-                res.send('you do not have previleges !!')
+                req.session.message = {
+                    type: 'info',
+                    message: 'you do not have previleges !!'
+                }
+               res.redirect('/login')
             }
         } else {
             res.redirect('/login')
