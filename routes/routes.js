@@ -275,10 +275,12 @@ router.get('/profile/:id', async (req, res) => {
 // // show blogs
 router.get('/blogs', async (req, res) => {
     try {
+       
         const blogs = await Blog.find().populate('comments').populate('author')
         res.render('showBlog', {
             title: 'Blog',
             blogs: blogs,
+            
             _id: req.session.user.user,
             name: req.session.user.name,
             Image: req.session.user.Image
