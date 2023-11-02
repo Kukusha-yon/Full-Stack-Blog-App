@@ -4,7 +4,7 @@ const User = require('../models/user');
 const Blog = require('../models/blog')
 const Comment = require('../models/comment')
 const multer = require('multer');
-const fs = require('fs');
+
 const bcrypt = require('bcrypt');
 const user = require('../models/user');
 const joi = require('joi');
