@@ -33,8 +33,11 @@ router.get('/', (req, res) => {
 
 //session 
 const userId = (req, res, next) => {
-    if (req.session.user === undefined) {
-        res.render('login')
+    if (req.session.user === '') {
+        req.session.message = {
+            type: 'info',
+            message: 'sorry !!!'
+        }
     } else {
         next()
     }
