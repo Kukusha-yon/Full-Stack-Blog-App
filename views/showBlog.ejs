@@ -5,16 +5,17 @@
             <div class="clearfix mt-40">
                 <ul class="xsearch-items" style="list-style-type: none;">
                     <li class="search-item">
-                 
+<!--                  
                         <div class="search-item-img">
                             <a href="#">
-                                <img src="<%=locals.Image %>" width="70" height="70" style="border-radius: 50px;"/>
+                                <img src="" width="70" height="70" style="border-radius: 50px;"/>
                             </a>
-                        </div>
+                        </div> -->
                     
                         <br>
                         <div class="search-item-content">
                             <div class="card">
+            
                                 <div class="row no-gutters">
                                     <div class="col-auto">
                                         <img src="<%= blog.Image %>" class="img-fluid" alt="">
@@ -28,6 +29,11 @@
                                                 <%= blog.content %>
                                             </p>
                                         </div>
+                                        <br>
+                                        <h6 class="card-title">
+                                            Contact me:
+                                            <%= blog.email %>
+                                        </h6>
                                     </div>
                                 </div>
                             </div>
